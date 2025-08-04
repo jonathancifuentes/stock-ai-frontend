@@ -12,6 +12,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "serve": "serve -s build -l 8080"
+    "serve": "serve -s build -l 8080",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

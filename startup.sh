@@ -6,4 +6,4 @@ echo "Building React app..."
 npm run build
 
 echo "Starting server..."
-npx serve -s build -l 3000 -n
+npx serve -s build -l 8080 -n

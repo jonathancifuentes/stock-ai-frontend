@@ -12,6 +12,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "serve": "serve -s build -l 3000"
+    "serve": "serve -s build -l 8080"
   }
 }

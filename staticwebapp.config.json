@@ -1,0 +1,18 @@
+{
+  "routes": [
+    {
+      "route": "/*",
+      "serve": "/index.html",
+      "statusCode": 200
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "platform": {
+    "apiRuntime": "node:18"
+  },
+  "environmentVariables": {
+    "REACT_APP_API_URL": "https://stock-ai-backend-edb0emf6eqawbeeq.centralus-01.azurewebsites.net"
+  }
+}

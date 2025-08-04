@@ -8,19 +8,23 @@ function App() {
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
   useEffect(() => {
+    console.log('API URL:', API_URL); // Debug log
+    
     fetch(`${API_URL}/api/stock-trends`)
       .then((res) => {
+        console.log('Response status:', res.status); // Debug log
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${res.status}`);
         }
         return res.json();
       })
       .then((json) => {
+        console.log('Received data:', json); // Debug log
         setData(json);
       })
       .catch((err) => {
         console.error('Error fetching data:', err);
-        setError('Failed to load stock data.');
+        setError(`Failed to load stock data: ${err.message}`);
       })
       .finally(() => {
         setLoading(false);
@@ -30,6 +34,16 @@ function App() {
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-4">📈 Stock Market Trends & AI Suggestions</h1>
+      
+      {/* Debug info */}
+      <div className="mb-4 p-2 bg-yellow-100 rounded">
+        <p><strong>Debug Info:</strong></p>
+        <p>API URL: {API_URL}</p>
+        <p>Loading: {loading ? 'Yes' : 'No'}</p>
+        <p>Error: {error || 'None'}</p>
+        <p>Data: {data ? 'Received' : 'None'}</p>
+      </div>
+      
       {loading ? (
         <p>Loading...</p>
       ) : error ? (

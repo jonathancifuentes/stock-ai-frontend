@@ -5,21 +5,28 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Use environment variable with fallback
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
   useEffect(() => {
-    console.log('API URL:', API_URL); // Debug log
+    console.log('Environment Variables:', {
+      REACT_APP_API_URL: process.env.REACT_APP_API_URL,
+      NODE_ENV: process.env.NODE_ENV,
+      API_URL: API_URL
+    });
+    
+    console.log('Making request to:', `${API_URL}/api/stock-trends`);
     
     fetch(`${API_URL}/api/stock-trends`)
       .then((res) => {
-        console.log('Response status:', res.status); // Debug log
+        console.log('Response status:', res.status);
         if (!res.ok) {
           throw new Error(`Network response was not ok: ${res.status}`);
         }
         return res.json();
       })
       .then((json) => {
-        console.log('Received data:', json); // Debug log
+        console.log('Received data:', json);
         setData(json);
       })
       .catch((err) => {
@@ -36,12 +43,16 @@ function App() {
       <h1 className="text-3xl font-bold mb-4">📈 Stock Market Trends & AI Suggestions</h1>
       
       {/* Debug info */}
-      <div className="mb-4 p-2 bg-yellow-100 rounded">
-        <p><strong>Debug Info:</strong></p>
-        <p>API URL: {API_URL}</p>
-        <p>Loading: {loading ? 'Yes' : 'No'}</p>
-        <p>Error: {error || 'None'}</p>
-        <p>Data: {data ? 'Received' : 'None'}</p>
+      <div className="mb-4 p-4 bg-yellow-100 rounded border">
+        <h2 className="font-bold mb-2">🔍 Debug Information:</h2>
+        <div className="text-sm space-y-1">
+          <p><strong>REACT_APP_API_URL:</strong> {process.env.REACT_APP_API_URL || 'Not set'}</p>
+          <p><strong>NODE_ENV:</strong> {process.env.NODE_ENV}</p>
+          <p><strong>Final API URL:</strong> {API_URL}</p>
+          <p><strong>Loading:</strong> {loading ? 'Yes' : 'No'}</p>
+          <p><strong>Error:</strong> {error || 'None'}</p>
+          <p><strong>Data Received:</strong> {data ? 'Yes' : 'No'}</p>
+        </div>
       </div>
       
       {loading ? (
